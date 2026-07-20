@@ -7,24 +7,8 @@ function GamePlayPage() {
   const [buildReady, setBuildReady] = useState(null)
 
   useEffect(() => {
-    let alive = true
-
-    const checkBuild = async () => {
-      try {
-        const response = await fetch(UNITY_BUILD_URL, { method: 'HEAD' })
-        if (!alive) return
-        setBuildReady(response.ok)
-      } catch {
-        if (!alive) return
-        setBuildReady(false)
-      }
-    }
-
-    void checkBuild()
-
-    return () => {
-      alive = false
-    }
+    // Skip the HEAD request to load the iframe immediately
+    setBuildReady(true)
   }, [])
 
   const handleBack = () => {
